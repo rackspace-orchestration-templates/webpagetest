@@ -1,3 +1,4 @@
+[![Circle CI](https://circleci.com/gh/rackspace-orchestration-templates/webpagetest/tree/master.png?style=shield)](https://circleci.com/gh/rackspace-orchestration-templates/webpagetest)
 Description
 ===========
 
@@ -43,11 +44,11 @@ Outputs
 Once a stack comes online, use `heat output-list` to see all available outputs.
 Use `heat output-show <OUTPUT NAME>` to get the value of a specific output.
 
-* `site_wpt_password`: WPT Password 
-* `server_ip`: Server IP 
-* `site_domain`: Web Page Test Domain name 
-* `admin_password`: Administrator Password 
-* `site_wpt_user`: WPT User 
+* `site_wpt_password`: WPT Password
+* `server_ip`: Server IP
+* `site_domain`: Web Page Test Domain name
+* `admin_password`: Administrator Password
+* `site_wpt_user`: WPT User
 
 For multi-line values, the response will come in an escaped form. To get rid of
 the escapes, use `echo -e '<STRING>' > file.txt`. For vim users, a substitution

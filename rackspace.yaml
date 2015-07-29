@@ -40,3 +40,6 @@ instructions: |
   If you are having trouble with video capture, open the Advanced Settings
   section and ensure the Capture Video option is enabled.
 user-input-required: true
+description: |
+  A single Windows server running the latest version of
+  [WebPageTest](http://www.webpagetest.org/).
