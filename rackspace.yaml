@@ -10,7 +10,7 @@ reach-info:
 hidden_outputs:
   - admin_password
 abstract: |
-  A single Windows server running [WebPageTest](http://www.webpagetest.org/).
+  WebPageTest is a free tool which allows website testing using real browsers.
 instructions: |
   #### Getting Started
   This instance will come online and perform a series of automatic
