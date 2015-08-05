@@ -1,8 +1,8 @@
 heat_template_version: 2013-05-23
 
 description: |
-  HEAT template for setting up a private instance of WebPageTest on a single Windows
-  Server
+  A single Windows server running the latest version of
+  [WebPageTest](http://www.webpagetest.org/).
 
 parameter_groups:
 
