@@ -25,39 +25,42 @@ Function Deploy-WebPagetest(){
     }
     #endregion
     #region Variables
+    # External Dependencies
     $wpt_zip_url =  "https://github.com/WPO-Foundation/webpagetest/releases/download/WebPagetest-2.15/webpagetest_2.15.zip"
-    $driver_installer_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/mindinst.exe"
-    $driver_installer_cert_url = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/WPOFoundation.cer"
     $wpi_msi_url = "http://download.microsoft.com/download/C/F/F/CFF3A0B8-99D4-41A2-AE1A-496C08BEB904/WebPlatformInstaller_amd64_en-US.msi"
-    $vcpp_vc11_url = "http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe"
-    $apache_bin_url = "http://www.apachelounge.com/download/VC11/binaries/httpd-2.4.12-win64-VC11.zip"
-    $php_bin_url = "http://windows.php.net/downloads/releases/php-5.4.37-Win32-VC9-x86.zip"
-    $apache_conf_url = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/httpd.conf"
-    $php_ini_url = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/php.ini"
-    $php_apc_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/PHP-5.4.8_APC-3.1.13_x86_vc9.zip"
-    $ffmeg_bin_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/ffmpeg-20140829-git-4c92047-win32-static.zip"
+    $vcpp_vc11_url = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
+    $apache_bin_url = "http://www.apachelounge.com/download/VC14/binaries/httpd-2.4.17-win32-VC14.zip"
+    $php_bin_url = "http://windows.php.net/downloads/releases/php-5.4.45-Win32-VC9-x86.zip"
     $ffmeg_bin_file = "ffmpeg-20140829-git-4c92047-win32-static.zip"
     $wpt_zip_file = "webpagetest_2.15.zip"
     $wpi_msi_file = "WebPlatformInstaller_amd64_en-US.msi"
-    $apache_bin_file = "httpd-2.4.12-win64-VC11.zip"
-    $php_bin_file = "php-5.4.37-Win32-VC9-x86.zip"
+    $apache_bin_file = "httpd-2.4.17-win32-VC14.zip"
+    $php_bin_file = "php-5.4.42-Win32-VC9-x86.zip"
     $php_apc_file = "PHP-5.4.8_APC-3.1.13_x86_vc9.zip"
     $vcpp_vc11_file = "vcredist_x86.exe"
     $webRoot = '$env:systemdrive\inetpub\wwwroot\'
 
-    $wpt_locations_ini = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/locations.ini"
-    $wpt_settings_ini = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/settings.ini"
-    $wpt_feeds_inc = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/feeds.inc"
-    $wpt_urlBlast_ini = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/urlBlast.ini"
-    $wpt_wptdriver_ini = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/wptdriver.ini"
+    # Github Dependencies
+    $php_ini_url = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/php.ini"
+    $apache_conf_url = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/httpd.conf"
+    $driver_installer_cert_url = "https://github.com/rackspace-orchestration-templates/webpagetest/raw/master/files/WPOFoundation.cer"
+    $wpt_locations_ini = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/locations.ini"
+    $wpt_settings_ini = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/settings.ini"
+    $wpt_feeds_inc = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/feeds.inc"
+    $wpt_urlBlast_ini = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/urlBlast.ini"
+    $wpt_wptdriver_ini = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/wptdriver.ini"
 
-    $webRoot = "$env:systemdrive\inetpub\wwwroot\"
-    $webFolder = $webRoot + $DomainName
-    $appPoolName = $DomainName
-    $siteName = $DomainName
-    $ftpName = "ftp_" + $DomainName
-    $appPoolIdentity = "IIS AppPool\$appPoolName"
-    #endregion
+    # Scripts
+    $DefaultUserNameURL = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/DefaultUserName.ps1"
+    $FirstRebootURL = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/FirstReboot.ps1"
+    $AgentUpdaterURL = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/Agent-Updater.ps1"
+
+    # Cloud Files Dependencies
+    $ffmeg_bin_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/ffmpeg-20140829-git-4c92047-win32-static.zip"
+    $php_apc_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/PHP-5.4.8_APC-3.1.13_x86_vc9.zip"
+    $driver_installer_url = "http://9cecab0681d23f5b71fb-642758a7a3ed7927f3ce8478e9844e11.r45.cf5.rackcdn.com/mindinst.exe"
+
+   #endregion
     function Set-WptFolders(){
         $wpt_folders = @($wpt_agent_dir,$wpt_www_dir,$wpt_temp_dir)
         foreach ($wpt_folder in $wpt_folders){
@@ -70,7 +73,7 @@ Function Deploy-WebPagetest(){
         }
         Write-Log "[$(Get-Date)] Downloading $filename"
         $webclient = New-Object System.Net.WebClient;
-	$webclient.Headers.Add("user-agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)")
+        $webclient.Headers.Add("user-agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)")
         $webclient.DownloadFile($url, $localpath + "\" + $filename)
     }
     function Unzip-File($fileName, $sourcePath, $destinationPath){
@@ -200,7 +203,7 @@ Function Deploy-WebPagetest(){
     function Set-DisableShutdownTracker (){
         $Path = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Reliability'
         Try {
-            $CurrentVal = Get-ItemProperty -Path $Path -Name ShutdownReasonUI
+            $CurrentVal = Get-ItemProperty -Path $Path -Name ShutdownReasonUI -ErrorAction SilentlyContinue
             Write-Log "[$(Get-Date)] $CurrentVal"
         } Catch {
             $CurrentVal = False
@@ -236,24 +239,6 @@ Function Deploy-WebPagetest(){
             bcdedit /set TESTSIGNING ON *>> $Logfile
             Write-Log "[$(Get-Date)] Test Signing Enabled."
         }
-        $dummynet = Get-NetAdapterBinding -Name public*
-        if ($dummynet.ComponentID -eq "ipfw+dummynet"){
-            If ($dummynet.Enabled ) {
-                Write-Log "[$(Get-Date)] ipfw+dummynet binding is already enabled."
-            } Else {
-                Enable-NetAdapterBinding -Name public0 -DisplayName ipfw+dummynet *>> $Logfile
-                Disable-NetAdapterBinding -Name private0 -DisplayName ipfw+dummynet *>> $Logfile
-            }
-        }
-        else{
-            Write-Log "[$(Get-Date)]  $InstallDir\$driver_installer_cert_file"
-            Import-Certificate -FilePath C:\wpt-agent\WPOFoundation.cer -CertStoreLocation Cert:\LocalMachine\TrustedPublisher *>> $Logfile
-            cd $InstallDir
-            .\mindinst.exe C:\wpt-agent\dummynet\64bit\netipfw.inf -i -s *>> $Logfile
-            Enable-NetAdapterBinding -Name public0 -DisplayName ipfw+dummynet *>> $Logfile
-            Enable-NetAdapterBinding -Name private0 -DisplayName ipfw+dummynet *>> $Logfile
-            Write-Log "[$(Get-Date)] Enabled ipfw+dummynet binding."
-        }
     }
     function Set-WebPageTestScheduledTask ($ThisHost, $User,$InstallDir){
         $GetTask = Get-ScheduledTask
@@ -280,7 +265,6 @@ Function Deploy-WebPagetest(){
         }
     }
     function Set-ScheduleDefaultUserName ($ThisHost, $User, $Password, $InstallDir) {
-            $DefaultUserNameURL = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/DefaultUserName.ps1"
             Invoke-WebRequest $DefaultUserNameURL -OutFile "$InstallDir\DefaultUserName.ps1" *>> $Logfile
             Replace-String -filePath "$InstallDir\DefaultUserName.ps1" -stringToReplace "%%USERNAME%%" -replaceWith $User
             $A = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-ExecutionPolicy Bypass -File $InstallDir\DefaultUserName.ps1"
@@ -290,8 +274,16 @@ Function Deploy-WebPagetest(){
             Register-ScheduledTask -TaskName "DefaultUserName Fix" -InputObject $D -User $User -Password $Password *>> $Logfile
     }
 
+    function Set-ScheduleFirstReboot ($ThisHost, $User, $Password, $InstallDir) {
+            Invoke-WebRequest $FirstRebootURL -OutFile "$InstallDir\FirstReboot.ps1" *>> $Logfile
+            $A = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-ExecutionPolicy Bypass -File $InstallDir\FirstReboot.ps1"
+            $T = New-ScheduledTaskTrigger -AtLogon -User $User
+            $S = New-ScheduledTaskSettingsSet
+            $D = New-ScheduledTask -Action $A -Trigger $T -Settings $S
+            Register-ScheduledTask -TaskName "FirstReboot" -InputObject $D -User $User -Password $Password *>> $Logfile
+    }
+
     function Set-AgentUpdaterScheduledTask ($ThisHost, $User, $InstallDir) {
-          $AgentUpdaterURL = "https://raw.githubusercontent.com/rackspace-orchestration-templates/webpagetest/master/files/Agent-Updater.ps1"
           Invoke-WebRequest $AgentUpdaterURL -OutFile "$InstallDir\Agent-Updater.ps1"
           $A = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-ExecutionPolicy Bypass -File $InstallDir\Agent-Updater.ps1"
           $T = New-ScheduledTaskTrigger -AtLogon -User $User
@@ -299,7 +291,6 @@ Function Deploy-WebPagetest(){
           $P = New-ScheduledTaskPrincipal -UserId "$ThisHost\$User" -LogonType ServiceAccount
           Register-ScheduledTask -TaskName "WPT Agent Updater" -Action $A -Trigger $T -Setting $S -Principal $P *>> $Logfile
     }
-
     function Install-WebPlatformInstaller(){
         Write-Log "[$(Get-Date)] Installing Web Platform Installer."
         Download-File -url $wpi_msi_url -localpath $wpt_temp_dir -filename $wpi_msi_file
@@ -340,7 +331,7 @@ Function Deploy-WebPagetest(){
         Download-File -url $php_ini_url -localpath $wpt_temp_dir -filename "php.ini"
         Copy-Item -Path $wpt_temp_dir\php.ini -Destination C:\php\ -Force *>> $Logfile
         Download-File -url $apache_conf_url -localpath $wpt_temp_dir -filename "httpd.conf"
-        Copy-Item -Path C:\wpt-temp\httpd.conf -Destination C:\Apache24\conf\httpd.conf -Force *>> $Logfile
+        Copy-Item -Path $wpt_temp_dir\httpd.conf -Destination C:\Apache24\conf\httpd.conf -Force *>> $Logfile
         Download-File -url $php_apc_url -localpath $wpt_temp_dir -filename $php_apc_file
         Unzip-File -fileName $php_apc_file -sourcePath $wpt_temp_dir -destinationPath  C:\php\ext
 
@@ -356,7 +347,7 @@ Function Deploy-WebPagetest(){
             Write-Log "[$(Get-Date)] ffmpeg path is already in the Env Path"
         }else{
             Write-Log "[$(Get-Date)] Adding the $ffmpeg_path to the Env Path"
-            $env:Path += $ffmpeg_path
+            setx PATH "$env:Path;$ffmpeg_path" /M
         }
         Restart-Service -Name Apache2.4 *>> $Logfile
     }
@@ -393,11 +384,11 @@ Function Deploy-WebPagetest(){
         #endregion
     }
     function Set-WptConfig (){
-        Copy-Item -Path C:\wpt-www\settings\feeds.inc.sample -Destination C:\wpt-www\settings\feeds.inc -Force *>> $Logfile
-        Copy-Item -Path C:\wpt-www\settings\locations.ini.sample -Destination C:\wpt-www\settings\locations.ini -Force *>> $Logfile
-        Copy-Item -Path C:\wpt-www\settings\settings.ini.sample -Destination C:\wpt-www\settings\settings.ini -Force *>> $Logfile
-        Copy-Item -Path C:\wpt-agent\urlBlast.ini.sample -Destination C:\wpt-agent\urlBlast.ini -Force *>> $Logfile
-        Copy-Item -Path C:\wpt-agent\wptdriver.ini.sample -Destination C:\wpt-agent\wptdriver.ini -Force *>> $Logfile
+        Download-File -url $wpt_locations_ini -localpath "$wpt_www_dir\settings" -filename "locations.ini"
+        Download-File -url $wpt_settings_ini -localpath "$wpt_www_dir\settings" -filename "settings.ini"
+        Download-File -url $wpt_feeds_inc -localpath "$wpt_www_dir\settings" -filename "feeds.inc"
+        Download-File -url $wpt_urlBlast_ini -localpath $wpt_agent_dir -filename "urlBlast.ini"
+        Download-File -url $wpt_wptdriver_ini -localpath $wpt_agent_dir -filename "wptdriver.ini"
     }
     function Set-ClosePort445 (){
         $CurrentVal = Get-NetFirewallRule
@@ -410,7 +401,10 @@ Function Deploy-WebPagetest(){
             Write-Log "[$(Get-Date)] Port PSexec Port rules does not exist."
         }
     }
-
+    function Disable-FindNetDevices(){
+        Set-Service fdPHost -StartupType Manual
+        Stop-Service fdPHost -force
+    }
     #region => Main
     Set-WptFolders
     Download-File -url $wpt_zip_url -localpath $wpt_temp_dir -filename $wpt_zip_file
@@ -431,6 +425,7 @@ Function Deploy-WebPagetest(){
     Set-InstallDummyNet -InstallDir $wpt_agent_dir
     Set-WebPageTestScheduledTask -ThisHost $wpt_host -User $wpt_user -InstallDir $wpt_agent_dir
     Set-ScheduleDefaultUserName -ThisHost $wpt_host -User $wpt_user -Password $wpt_password -InstallDir $wpt_agent_dir
+    Set-ScheduleFirstReboot -ThisHost $wpt_host -User $wpt_user -Password $wpt_password -InstallDir $wpt_agent_dir
     Set-AgentUpdaterScheduledTask -ThisHost $wpt_host -User $wpt_user -InstallDir $wpt_agent_dir
     Install-WebPlatformInstaller
     Install-Apache
@@ -438,20 +433,21 @@ Function Deploy-WebPagetest(){
     Install-Ffmeg
     Set-WptConfig
     Enable-WebServerFirewall
+    Disable-FindNetDevices
     Set-ClosePort445
     #endregion
-    Download-File -url $wpt_locations_ini -localpath "$wpt_www_dir\settings" -filename "locations.ini"
-    Download-File -url $wpt_settings_ini -localpath "$wpt_www_dir\settings" -filename "settings.ini"
-    Download-File -url $wpt_feeds_inc -localpath "$wpt_www_dir\settings" -filename "feeds.inc"
-    Download-File -url $wpt_urlBlast_ini -localpath $wpt_agent_dir -filename "urlBlast.ini"
-    Download-File -url $wpt_wptdriver_ini -localpath $wpt_agent_dir -filename "wptdriver.ini"
 }
 #endregion
-
 #region MAIN : Deploy Web Pagge Test
-#Delete myself from the filesystem during execution
-#Remove-Item $MyINvocation.InvocationName
-
 Deploy-WebPagetest
 #Deploy-WebPagetest -DomainName "%wptdomain%" -wpt_user "%wptusername%" -wpt_password "%wptpassword%"
 #endregion
+# Create Shortcut to IE
+$WshShell = New-Object -ComObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("C:\Users\Public\Desktop\Internet Explorer.lnk")
+$Shortcut.TargetPath = "C:\Program Files\Internet Explorer\iexplore.exe"
+$Shortcut.Save()
+# Schedule Reboot
+
+$Future = ((Get-Date).AddMinutes(5)).ToString("HH:mm")
+schtasks /Create /SC ONCE /RU SYSTEM /TN "Single Reboot" /TR "shutdown -r" /ST $Future
