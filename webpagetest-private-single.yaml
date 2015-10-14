@@ -537,12 +537,9 @@ resources:
             $Shortcut.TargetPath = "C:\Program Files\Internet Explorer\iexplore.exe"
             $Shortcut.Save()
             # Schedule Reboot
-            $Now = Get-Date
-            $Future = $Now.AddMinutes(5)
-            $Hour = $Future.Hour
-            $Minute = $Future.Minute
-            $Time = "${Hour}:${Minute}"
-            schtasks /Create /SC ONCE /RU SYSTEM /TN "Single Reboot" /TR "shutdown -r" /ST $Time
+
+            $Future = ((Get-Date).AddMinutes(5)).ToString("HH:mm")
+            schtasks /Create /SC ONCE /RU SYSTEM /TN "Single Reboot" /TR "shutdown -r" /ST $Future
           params:
             "%wptdomain%" : { get_param: domain }
             "%wptusername%" : { get_param: wpt_username }
