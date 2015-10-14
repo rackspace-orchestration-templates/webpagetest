@@ -293,7 +293,7 @@ resources:
                 function Set-DisableShutdownTracker (){
                     $Path = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Reliability'
                     Try {
-                        $CurrentVal = Get-ItemProperty -Path $Path -Name ShutdownReasonUI
+                        $CurrentVal = Get-ItemProperty -Path $Path -Name ShutdownReasonUI -ErrorAction SilentlyContinue
                         Write-Log "[$(Get-Date)] $CurrentVal"
                     } Catch {
                         $CurrentVal = False
