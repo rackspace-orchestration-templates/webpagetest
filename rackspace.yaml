@@ -16,12 +16,12 @@ instructions: |
   This instance will come online and perform a series of automatic
   configurations.
   This includes automatic login of a webpagetest user. If you log in to this
-  server over RDP, you have to restart the system so the auto login happens
+  server over RDP, you have to reboot the system so the auto login happens
   again. Otherwise, the tests performed with WebPageTest will have black
   screenshots and video. You will need to manage this system with the Java
   Console in the Control Panel.
   #### Automatic Reboots
-  An automatic restart of the server will be performed 5 minutes after the
+  An automatic reboot of the server will be performed 5 minutes after the
   system comes online. Another automatic reboot will be performed once the
   system fails the automatic logon process.
   Do not interupt this automatic reboot process, or your installation will
