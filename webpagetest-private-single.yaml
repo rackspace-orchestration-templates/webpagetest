@@ -124,7 +124,7 @@ resources:
                 $ffmeg_bin_file = "ffmpeg-20140829-git-4c92047-win32-static.zip"
                 $wpt_zip_file = "webpagetest_2.15.zip"
                 $wpi_msi_file = "WebPlatformInstaller_amd64_en-US.msi"
-                $apache_bin_file = "httpd-2.4.17-win32-VC14.zip"
+                $apache_bin_file = "httpd-2.4.25-win32-VC14.zip"
                 $php_bin_file = "php-5.4.45-Win32-VC9-x86.zip"
                 $php_apc_file = "PHP-5.4.8_APC-3.1.13_x86_vc9.zip"
                 $vcpp_vc11_file = "vcredist_x86.exe"
