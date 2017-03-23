@@ -29,13 +29,13 @@ Function Deploy-WebPagetest(){
     $wpt_zip_url =  "https://github.com/WPO-Foundation/webpagetest/releases/download/WebPagetest-2.15/webpagetest_2.15.zip"
     $wpi_msi_url = "http://download.microsoft.com/download/C/F/F/CFF3A0B8-99D4-41A2-AE1A-496C08BEB904/WebPlatformInstaller_amd64_en-US.msi"
     $vcpp_vc11_url = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
-    $apache_bin_url = "http://www.apachelounge.com/download/VC14/binaries/httpd-2.4.17-win32-VC14.zip"
+    $apache_bin_url = "http://www.apachelounge.com/download/VC14/binaries/httpd-2.4.25-win32-VC14.zip"
     $php_bin_url = "http://windows.php.net/downloads/releases/php-5.4.45-Win32-VC9-x86.zip"
     $ffmeg_bin_file = "ffmpeg-20140829-git-4c92047-win32-static.zip"
     $wpt_zip_file = "webpagetest_2.15.zip"
     $wpi_msi_file = "WebPlatformInstaller_amd64_en-US.msi"
-    $apache_bin_file = "httpd-2.4.17-win32-VC14.zip"
-    $php_bin_file = "php-5.4.42-Win32-VC9-x86.zip"
+    $apache_bin_file = "httpd-2.4.25-win32-VC14.zip"
+    $php_bin_file = "php-5.4.45-Win32-VC9-x86.zip"
     $php_apc_file = "PHP-5.4.8_APC-3.1.13_x86_vc9.zip"
     $vcpp_vc11_file = "vcredist_x86.exe"
     $webRoot = '$env:systemdrive\inetpub\wwwroot\'
@@ -146,7 +146,8 @@ Function Deploy-WebPagetest(){
     }
     function Set-MonitorTimeout (){
         $CurrentVal = POWERCFG /QUERY SCHEME_BALANCED SUB_VIDEO VIDEOIDLE | Select-String -pattern "Current AC Power Setting Index:"
-        If ($CurrentVal -like "*0x00000000*") {
+        If ($CurrentVal -like "*0x00000000*")
+        {
             Write-Log "[$(Get-Date)] Display Timeout already set to Never."
         } Else {
             POWERCFG /CHANGE -monitor-timeout-ac 0
@@ -155,18 +156,26 @@ Function Deploy-WebPagetest(){
     }
     function Set-DisableScreensaver (){
         $Path = 'HKCU:\Control Panel\Desktop'
-        Try {
-          $CurrentVal = Get-ItemProperty -Path $Path -Name ScreenSaveActive
-          Write-Log "[$(Get-Date)] $CurrentVal"
-        } Catch {
-          $CurrentVal = False
-        } Finally {
-          if ($CurrentVal.ScreenSaveActive -ne 0) {
-            Set-ItemProperty -Path $Path -Name ScreenSaveActive -Value 0 *>> $Logfile
-            Write-Log "[$(Get-Date)] Screensaver Disabled."
-          } Else {
-            Write-Log "[$(Get-Date)] Screensaver Already Disabled."
-          }
+        Try
+        {
+            $CurrentVal = Get-ItemProperty -Path $Path -Name ScreenSaveActive
+            Write-Log "[$(Get-Date)] $CurrentVal"
+        }
+        Catch
+        {
+            $CurrentVal = False
+        }
+        Finally
+        {
+            if ($CurrentVal.ScreenSaveActive -ne 0)
+            {
+                Set-ItemProperty -Path $Path -Name ScreenSaveActive -Value 0 *>> $Logfile
+                Write-Log "[$(Get-Date)] Screensaver Disabled."
+            }
+            Else
+            {
+                Write-Log "[$(Get-Date)] Screensaver Already Disabled."
+            }
         }
     }
     function Set-DisableUAC (){
@@ -200,18 +209,27 @@ Function Deploy-WebPagetest(){
             Write-Log "[$(Get-Date)] Platform Clock Enabled."
         }
     }
-    function Set-DisableShutdownTracker (){
+    function Set-DisableShutdownTracker
+    {
         $Path = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Reliability'
-        Try {
+        Try
+        {
             $CurrentVal = Get-ItemProperty -Path $Path -Name ShutdownReasonUI -ErrorAction SilentlyContinue
             Write-Log "[$(Get-Date)] $CurrentVal"
-        } Catch {
+        }
+        Catch
+        {
             $CurrentVal = False
-        } Finally {
-            if ($CurrentVal.ShutdownReasonUI -ne 0) {
+        }
+        Finally
+        {
+            if ($CurrentVal.ShutdownReasonUI -ne 0)
+            {
                 New-ItemProperty -Path $Path -Name ShutdownReasonUI -Value 0
                 Write-Log "[$(Get-Date)] Shutdown Tracker Disabled."
-            }Else{
+            }
+            Else
+            {
                 Write-Log "[$(Get-Date)] Shutdown Tracker Already Disabled."
             }
         }
