@@ -119,7 +119,7 @@ resources:
                 $wpt_zip_url =  "https://github.com/WPO-Foundation/webpagetest/releases/download/WebPagetest-2.15/webpagetest_2.15.zip"
                 $wpi_msi_url = "http://download.microsoft.com/download/C/F/F/CFF3A0B8-99D4-41A2-AE1A-496C08BEB904/WebPlatformInstaller_amd64_en-US.msi"
                 $vcpp_vc11_url = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
-                $apache_bin_url = "https://www.apachelounge.com/download/VC14/binaries/httpd-2.4.20-win32-VC14.zip"
+                $apache_bin_url = "https://www.apachelounge.com/download/VC14/binaries/httpd-2.4.25-win32-VC14.zip"
                 $php_bin_url = "http://windows.php.net/downloads/releases/archives/php-5.4.45-Win32-VC9-x86.zip"
                 $ffmeg_bin_file = "ffmpeg-20140829-git-4c92047-win32-static.zip"
                 $wpt_zip_file = "webpagetest_2.15.zip"
